@@ -11,21 +11,21 @@ var spotify = new Spotify(keys.spotify);
 switch (create) {
 
   case "spotify-this-song":
-    spotifyRun();
+    OpenSpotify();
     break;
 
   case "movie-this":
-    omdbRun();
+    OpenOmdb();
     break;
 
   case "do-what-it-says":
-    whatItSays();
+    Random();
     break;
 };
 
-function spotifyRun() {
+function OpenSpotify() {
   if (!control) {
-    control = "The Sign";
+    control = "Better Now";
   }
 
   spotify.search({ type: "track", query: control, limit: 1 }, function(err, data) {
@@ -44,9 +44,9 @@ function spotifyRun() {
   });
 };
 
-function omdbRun() {
+function OpenOmdb() {
   if (!control) {
-    control = "Mr.Nobody";
+    control = "The Avengers";
   }
 
   var omdb = `http://www.omdbapi.com/?t="${control}"&y=&plot=short&apikey=trilogy`;
@@ -68,7 +68,7 @@ function omdbRun() {
   });
 }
 
-function whatItSays() {
+function Random() {
   fs.readFile("random.txt", "UTF8", function(err, data) {
     if (err) {
       return console.log("Error occurred: " + err);
@@ -78,6 +78,6 @@ function whatItSays() {
     create = data[0];
     control = data[1];
 
-    spotifyRun();
+    OpenSpotify();
   });
 }
